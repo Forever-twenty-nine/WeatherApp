@@ -1,0 +1,62 @@
+﻿@using WeatherApp.Models;
+
+@if (weatherData != null)
+{
+    <div class="weather-city">
+        <div class="city">
+            <div class="bg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <p>@weatherData.Name</p>
+            </div>
+        </div>
+        <div class="weather">
+            <i class="@GetWeatherIconClass(weatherData.Description)"></i>
+            <div>
+                <p class="temperature">@weatherData.Temperature <span>°C</span></p>
+                <p class="description">@weatherData.Description</p>
+            </div>
+        </div>
+        <ul class="data">
+            <li>
+                <i class="bi-wind"></i>
+                <p class="value">@weatherData.WindSpeed m/s</p>
+                <p class="title">Viento</p>
+            </li>
+            <li>
+                <i class="bi bi-thermometer-high"></i>
+                <p class="value">@weatherData.TempMax °C</p>
+                <p class="title">Temp Max</p>
+            </li>
+            <li>
+                <i class="bi-moisture"></i>
+                <p class="value">@weatherData.Humidity</p>
+                <p class="title">Humedad</p>
+            </li>
+        </ul>
+    </div>
+
+
+}
+@code {
+    [Parameter]
+    public WeatherData? weatherData { get; set; }
+ private string GetWeatherIconClass(string description)
+    {
+        switch (description.ToLower())
+        {
+            case "cielo claro":
+                return "bi-sun";
+            case "nubes":
+                return "bi-cloud";
+            case "lluvia":
+                return "bi-cloud-rain";  
+            case "tormenta":
+                return "bi-cloud-lightning-rain";  
+            case "nieve":
+                return "bi-snow";         
+            default:
+                return "bi-cloud-sun";
+        }
+    }
+}
+
